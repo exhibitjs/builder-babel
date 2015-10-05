@@ -1,8 +1,6 @@
 # exhibit-builder-babel [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 
-> [Exhibit](https://github.com/exhibitjs/exhibit) builder plugin.
->
-> Transforms JavaScript files using [Babel](https://babeljs.io/).
+> [Exhibit](https://github.com/exhibitjs/exhibit) builder plugin. Transforms JavaScript files using [Babel](https://babeljs.io/).
 
 
 ## Installation
@@ -22,7 +20,8 @@ exhibit('./src')
 
 ## Options
 
-Most of the standard [Babel options](https://babeljs.io/docs/usage/options/) work as normal.  Plus there is one extra option provided by this plugin, and the difference that `sourceMaps` defaults to `true`.
+Most of the normal [Babel options](https://babeljs.io/docs/usage/options/) work as normal, except that `sourceMaps` defaults to `true`, and there is one extra option provided by this plugin (below).
+
 
 ### `extensions`
 
