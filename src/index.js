@@ -2,24 +2,31 @@ import {transform} from 'babel-core';
 import convertSourceMap from 'convert-source-map';
 
 const defaults = {
-  extensions: ['.es6', '.es6.js', '.js'],
+  extensions: ['.js', 'babel.js', '.es6', '.es6.js', '.jsx'],
+  sourceMaps: true,
 };
 
 export default function (_options) {
-  let options;
-  function setup(_) {
-    options = _.assign({}, defaults, _options);
+  let options, extensions;
+
+  function setup() {
+    options = Object.assign({}, defaults, _options);
+
+    // remove our special option
+    if (options.extensions) {
+      extensions = options.extensions;
+      delete options.extensions;
+    }
+
+    // the remaining options object is suitable for giving to babel.
   }
 
   return function exhibitBabel(path, contents) {
-    const {_} = this;
-    const results = {};
-
-    if (!options) setup(_);
+    if (!options) setup();
 
     // pass non-JS files straight through
     let isJS, jsFilename;
-    for (const extension of options.extensions) {
+    for (const extension of extensions) {
       if (path.substr(-extension.length) === extension) {
         isJS = true;
         jsFilename = path.substring(0, path.length - extension.length) + '.js';
@@ -33,7 +40,7 @@ export default function (_options) {
     let result;
 
     try {
-      result = transform(source, {});
+      result = transform(source, options);
     }
     catch (error) {
       console.log('ERROR!!!');
@@ -50,12 +57,18 @@ export default function (_options) {
       });
     }
 
-    // const comment = convertSourceMap
-    //   .fromJSON(result.map)
-    //   .setProperty('sources', [path])
-    //   .toComment();
 
-    results[jsFilename] = result.code + '\n'; //+ comment;
-    return results;
+    if (options.sourceMaps) {
+      // console.log('result.map', typeof result.map, result.map);
+
+      const comment = convertSourceMap
+        .fromObject(result.map)
+        .setProperty('sources', [path])
+        .toComment();
+
+      return { [jsFilename]: `${result.code}\n${comment}` };
+    }
+
+    return { [jsFilename]: result.code };
   };
 }
