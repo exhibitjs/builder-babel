@@ -43,12 +43,9 @@ export default function (_options) {
       result = transform(source, options);
     }
     catch (error) {
-      console.log('ERROR!!!');
-      console.log(error.loc);
-
       // todo: remove the "(line:column)" from end of message
 
-      throw new this.SourceError({
+      throw new this.util.SourceError({
         message: error.message,
         path: path,
         contents: source,
