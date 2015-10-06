@@ -1,5 +1,4 @@
 import {transform} from 'babel-core';
-import convertSourceMap from 'convert-source-map';
 
 const defaults = {
   extensions: ['.js', 'babel.js', '.es6', '.es6.js', '.jsx'],
@@ -58,7 +57,7 @@ export default function (_options) {
     if (options.sourceMaps) {
       // console.log('result.map', typeof result.map, result.map);
 
-      const comment = convertSourceMap
+      const comment = this.util.convertSourceMap
         .fromObject(result.map)
         .setProperty('sources', [path])
         .toComment();
