@@ -20,7 +20,7 @@ export default function (_options) {
     // the remaining options object is suitable for giving to babel.
   }
 
-  return function exhibitBabel(path, contents) {
+  return function exhibitBabel({path, contents, util}) {
     if (!options) setup();
 
     // pass non-JS files straight through
@@ -44,9 +44,9 @@ export default function (_options) {
     catch (error) {
       // todo: remove the "(line:column)" from end of message
 
-      throw new this.util.SourceError({
+      throw new util.SourceError({
+        path,
         message: error.message,
-        path: path,
         contents: source,
         line: error.loc ? error.loc.line : null,
         column: error.loc ? error.loc.column : null,
@@ -57,7 +57,7 @@ export default function (_options) {
     if (options.sourceMaps) {
       // console.log('result.map', typeof result.map, result.map);
 
-      const comment = this.util.convertSourceMap
+      const comment = util.convertSourceMap
         .fromObject(result.map)
         .setProperty('sources', [path])
         .toComment();

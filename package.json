@@ -3,9 +3,6 @@
   "description": "Exhibit builder for transforming JavaScript files using Babel",
   "version": "0.1.0",
   "author": "Callum Locke",
-  "bugs": {
-    "url": "https://github.com/exhibitjs/exhibit-builder-babel/issues"
-  },
   "dependencies": {
     "babel-core": "^5.8.25"
   },
@@ -13,22 +10,19 @@
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
     "eslint": "^1.6.0",
-    "nodemon": "^1.7.1"
+    "nodemon": "^1.7.1",
+    "rimraf": "^2.4.3"
   },
   "files": [
     "dist",
     "src"
   ],
-  "homepage": "https://github.com/exhibitjs/exhibit-builder-babel",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/exhibitjs/exhibit-builder-babel.git"
-  },
+  "repository": "exhibitjs/builder-babel",
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "buildwatch": "babel src --out-dir dist --watch",
+    "build": "rimraf dist && babel src --out-dir dist",
+    "buildwatch": "rimraf dist && babel src --out-dir dist --watch",
     "prepublish": "npm run build"
   }
 }
