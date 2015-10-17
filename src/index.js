@@ -24,6 +24,7 @@ export default function (options) {
 
     // compile the contents
     const source = contents.toString();
+    let result;
     try {
       result = transform(source, options);
     }
@@ -44,9 +45,9 @@ export default function (options) {
         .setProperty('sources', [file])
         .toComment();
 
-      return { [jsFilename]: `${result.code}\n${comment}` };
+      return {[jsFilename]: `${result.code}\n${comment}`};
     }
 
-    return { [jsFilename]: result.code };
+    return {[jsFilename]: result.code};
   };
 }
