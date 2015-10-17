@@ -1,7 +1,7 @@
 {
   "name": "exhibit-builder-babel",
   "description": "Exhibit builder for transforming JavaScript files using Babel",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Callum Locke",
   "babel": {
     "stage": 0,
