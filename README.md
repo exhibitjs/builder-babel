@@ -28,7 +28,7 @@ Most of the usual [Babel options](https://babeljs.io/docs/usage/options/) work a
 
 > **`include`** (string/array/function) — default: `'**/*.{js,jsx,babel.js}'`
 
-Chooses which files should be compiled. Follows Exhibit’s [glob convention](https://github.com/exhibitjs/exhibit/docs/glob-convention.md).
+Chooses which files should be compiled. Follows Exhibit’s [glob convention](https://github.com/exhibitjs/exhibit/blob/master/docs/glob-convention.md).
 
 > **`replaceExt`** (regular expression) — default: `/\.(jsx|babel\.js)$/`
 
