@@ -45,11 +45,11 @@ MIT
 [npm-url]: https://npmjs.org/package/exhibit-builder-babel
 [npm-image]: https://img.shields.io/npm/v/exhibit-builder-babel.svg?style=flat-square
 
-[travis-url]: http://travis-ci.org/exhibitjs/exhibit-builder-babel
-[travis-image]: https://img.shields.io/travis/exhibitjs/exhibit-builder-babel.svg?style=flat-square
+[travis-url]: http://travis-ci.org/exhibitjs/builder-babel
+[travis-image]: https://img.shields.io/travis/exhibitjs/builder-babel.svg?style=flat-square
 
-[depstat-url]: https://david-dm.org/exhibitjs/exhibit-builder-babel
-[depstat-image]: https://img.shields.io/david/exhibitjs/exhibit-builder-babel.svg?style=flat-square
+[depstat-url]: https://david-dm.org/exhibitjs/builder-babel
+[depstat-image]: https://img.shields.io/david/exhibitjs/builder-babel.svg?style=flat-square
 
 [devdepstat-url]: https://david-dm.org/exhibitjs/builder-babel#info=devDependencies
 [devdepstat-image]: https://img.shields.io/david/dev/exhibitjs/builder-babel.svg?style=flat-square
