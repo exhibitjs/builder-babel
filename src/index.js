@@ -1,51 +1,36 @@
 import {transform} from 'babel-core';
 
 const defaults = {
-  extensions: ['.js', 'babel.js', '.es6', '.es6.js', '.jsx'],
+  include: '**/*.{js,jsx,babel.js}',
+  replaceExt: /\.(jsx|babel\.js)$/,
   sourceMaps: true,
 };
 
-export default function (_options) {
-  let options, extensions;
+export default function (options) {
+  options = Object.assign({}, defaults, options);
 
-  function setup() {
-    options = Object.assign({}, defaults, _options);
+  // remove special plugin-only options
+  const include = options.include;
+  delete options.include;
+  const replaceExt = options.replaceExt;
+  delete options.replaceExt;
 
-    // remove our special option
-    if (options.extensions) {
-      extensions = options.extensions;
-      delete options.extensions;
-    }
-
-    // the remaining options object is suitable for giving to babel.
-  }
-
-  return function exhibitBabel({path, contents, util}) {
-    if (!options) setup();
-
+  return function exhibitBabel({matches, file, contents, util}) {
     // pass non-JS files straight through
-    let isJS, jsFilename;
-    for (const extension of extensions) {
-      if (path.substr(-extension.length) === extension) {
-        isJS = true;
-        jsFilename = path.substring(0, path.length - extension.length) + '.js';
-        break;
-      }
-    }
-    if (!isJS) return contents;
+    if (!matches(include)) return contents;
 
+    // replace extension for outgoing filename (if it's jsx or whatever)
+    const jsFilename = replaceExt ? file.replace(replaceExt, '.js') : file;
 
+    // compile the contents
     const source = contents.toString();
-    let result;
-
     try {
       result = transform(source, options);
     }
     catch (error) {
       // todo: remove the "(line:column)" from end of message
-
       throw new util.SourceError({
-        path,
+        file,
         message: error.message,
         contents: source,
         line: error.loc ? error.loc.line : null,
@@ -53,13 +38,10 @@ export default function (_options) {
       });
     }
 
-
     if (options.sourceMaps) {
-      // console.log('result.map', typeof result.map, result.map);
-
       const comment = util.convertSourceMap
         .fromObject(result.map)
-        .setProperty('sources', [path])
+        .setProperty('sources', [file])
         .toComment();
 
       return { [jsFilename]: `${result.code}\n${comment}` };

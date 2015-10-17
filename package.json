@@ -19,6 +19,9 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
+  "peerDependencies": {
+    "exhibit": "^0.7.0"
+  },
   "repository": "exhibitjs/builder-babel",
   "scripts": {
     "build": "rimraf dist && babel src --out-dir dist",
